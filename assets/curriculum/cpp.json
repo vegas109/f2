@@ -255,6 +255,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "cpp_stl",
+      "title": "STL Algorithms",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "cpp_stl_theory",
+          "type": "theory",
+          "title": "The Algorithms Library",
+          "steps": [
+            { "kind": "theory", "heading": "<algorithm> & <numeric>", "body": "std::sort, std::accumulate and friends operate on ranges.", "code": "#include <numeric>\nint s = std::accumulate(v.begin(), v.end(), 0);" },
+            { "kind": "fill_blank", "prompt": "Complete the algorithm that sorts a range.", "template": "std::___(v.begin(), v.end());", "answers": ["sort"] }
+          ]
+        },
+        {
+          "id": "cpp_accumulate",
+          "type": "sandbox",
+          "title": "Accumulate",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Sum {1,2,3,4} with std::accumulate and print it. Expected: 10.", "starterCode": "#include <iostream>\n#include <vector>\n#include <numeric>\nint main() {\n    std::vector<int> v = {1, 2, 3, 4};\n    // use std::accumulate and print the sum\n    return 0;\n}\n", "expectedStdout": "10" }
+          ]
+        },
+        {
+          "id": "cpp_boss_stl",
+          "type": "sandbox",
+          "title": "BOSS: Sort & Pick",
+          "isBoss": true,
+          "timeLimitSeconds": 200,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Sort {3,1,2} ascending and print the first element. Expected: 1.", "starterCode": "#include <iostream>\n#include <vector>\n#include <algorithm>\nint main() {\n    std::vector<int> v = {3, 1, 2};\n    // sort v, then print v[0]\n    return 0;\n}\n", "expectedStdout": "1" }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -15,6 +15,7 @@ const _languages = <_Lang>[
   _Lang('de', 'Deutsch', '🇩🇪'),
   _Lang('fr', 'Français', '🇫🇷'),
   _Lang('pt', 'Português', '🇵🇹'),
+  _Lang('it', 'Italiano', '🇮🇹'),
 ];
 
 class SettingsScreen extends ConsumerWidget {

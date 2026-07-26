@@ -269,6 +269,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "py_comprehensions",
+      "title": "Comprehensions",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "py_listcomp",
+          "type": "theory",
+          "title": "List Comprehensions",
+          "steps": [
+            { "kind": "theory", "heading": "Comprehensions", "body": "Build lists concisely from an iterable.", "code": "squares = [x*x for x in range(4)]\n# [0, 1, 4, 9]" },
+            { "kind": "fill_blank", "prompt": "Complete the keyword that iterates inside a comprehension.", "template": "[x*2 ___ x in nums]", "answers": ["for"] }
+          ]
+        },
+        {
+          "id": "py_comp_sandbox",
+          "type": "sandbox",
+          "title": "Sum of Squares",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the sum of squares of 1,2,3 using a comprehension. Expected: 14.", "starterCode": "nums = [1, 2, 3]\n# print sum of x*x for x in nums\n", "expectedStdout": "14" }
+          ]
+        },
+        {
+          "id": "py_boss_comp",
+          "type": "sandbox",
+          "title": "BOSS: Filter with a Comprehension",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Count items in [1,2,3,4] greater than 2 using a comprehension and print it. Expected: 2.", "starterCode": "nums = [1, 2, 3, 4]\n# print how many are > 2\n", "expectedStdout": "2" }
+          ]
+        }
+      ]
     }
   ]
 }
