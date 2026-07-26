@@ -44,10 +44,14 @@ class CraftingScreen extends ConsumerWidget {
           final item = Cosmetic.catalog[i];
           final owned = state.unlocked.contains(item.id);
           final affordable = state.parts >= item.cost;
+          final equipped = item.kind == 'avatar'
+              ? state.equippedAvatar == item.id
+              : state.equippedSkin == item.id;
           return _CosmeticCard(
             item: item,
             owned: owned,
             affordable: affordable,
+            equipped: equipped,
             onCraft: () {
               final ok = controller.craft(item);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -58,6 +62,7 @@ class CraftingScreen extends ConsumerWidget {
                 ),
               );
             },
+            onEquip: () => controller.equip(item),
           );
         },
       ),
@@ -70,13 +75,17 @@ class _CosmeticCard extends StatelessWidget {
     required this.item,
     required this.owned,
     required this.affordable,
+    required this.equipped,
     required this.onCraft,
+    required this.onEquip,
   });
 
   final Cosmetic item;
   final bool owned;
   final bool affordable;
+  final bool equipped;
   final VoidCallback onCraft;
+  final VoidCallback onEquip;
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +113,11 @@ class _CosmeticCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: owned
-                ? const OutlinedButton(
-                    onPressed: null, child: Text('Owned'))
+                ? (equipped
+                    ? const OutlinedButton(
+                        onPressed: null, child: Text('Equipped'))
+                    : OutlinedButton(
+                        onPressed: onEquip, child: const Text('Equip')))
                 : ElevatedButton(
                     onPressed: affordable ? onCraft : null,
                     child: Text('${item.cost} parts'),

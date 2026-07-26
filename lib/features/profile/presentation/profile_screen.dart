@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../achievements/application/achievement_providers.dart';
+import '../../achievements/presentation/achievements_screen.dart';
 import '../../auth/application/auth_controller.dart';
+import '../../crafting/application/crafting_controller.dart';
 import '../../crafting/presentation/crafting_screen.dart';
 import '../../player/application/player_controller.dart';
+import '../../settings/presentation/settings_screen.dart';
 import '../../store/application/store_controller.dart';
 import '../../store/presentation/store_screen.dart';
 
@@ -17,9 +21,22 @@ class ProfileScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final user = ref.watch(authControllerProvider).user;
     final player = ref.watch(playerControllerProvider);
+    final avatarEmoji = ref.watch(
+        craftingControllerProvider.select((s) => s.equippedAvatarEmoji));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tabProfile)),
+      appBar: AppBar(
+        title: Text(l10n.tabProfile),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: l10n.settings,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -29,9 +46,10 @@ class ProfileScreen extends ConsumerWidget {
                 radius: 32,
                 backgroundColor: AppColors.primary.withOpacity(0.18),
                 child: Text(
-                  (user?.displayName ?? 'C').characters.first.toUpperCase(),
-                  style: const TextStyle(
-                    fontSize: 26,
+                  avatarEmoji ??
+                      (user?.displayName ?? 'C').characters.first.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: avatarEmoji != null ? 34 : 26,
                     fontWeight: FontWeight.w800,
                     color: AppColors.primary,
                   ),
@@ -79,6 +97,16 @@ class ProfileScreen extends ConsumerWidget {
             subtitle: 'Turn parts into cosmetics',
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const CraftingScreen()),
+            ),
+          ),
+          _NavTile(
+            icon: Icons.military_tech_rounded,
+            color: AppColors.success,
+            title: 'Achievements',
+            subtitle:
+                '${ref.watch(unlockedAchievementCountProvider)} unlocked',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const AchievementsScreen()),
             ),
           ),
           const SizedBox(height: 8),
