@@ -8,6 +8,7 @@ import '../../code_execution/domain/programming_language.dart';
 import '../../curriculum/domain/lesson_step.dart';
 import '../../curriculum/domain/track.dart';
 import '../../player/application/player_controller.dart';
+import '../../quests/application/quest_controller.dart';
 import 'widgets/constructor_step_view.dart';
 import 'widgets/fill_blank_step_view.dart';
 import 'widgets/sandbox_step_view.dart';
@@ -85,6 +86,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final awarded = ref
         .read(playerControllerProvider.notifier)
         .completeLesson(widget.lesson.id, xp: widget.lesson.xpReward);
+    ref.read(questControllerProvider.notifier).recordLessonCompleted(
+          trackId: widget.trackId,
+          mistakes: _mistakes,
+        );
     showDialog(
       context: context,
       barrierDismissible: false,

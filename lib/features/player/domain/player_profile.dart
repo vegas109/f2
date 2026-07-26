@@ -16,6 +16,7 @@ class PlayerProfile extends Equatable {
     this.selectedTrack = 'python',
     this.lastEnergyRefillMs = 0,
     this.completedLessonIds = const <String>{},
+    this.lastActiveDay = '',
   });
 
   final int xp;
@@ -29,6 +30,9 @@ class PlayerProfile extends Equatable {
 
   /// Ids of lessons the player has completed (for progress + skill tree).
   final Set<String> completedLessonIds;
+
+  /// Last day (yyyy-mm-dd) the player completed activity, for streak logic.
+  final String lastActiveDay;
 
   /// Simple level curve: every 100 XP is a level.
   int get level => (xp ~/ 100) + 1;
@@ -46,6 +50,7 @@ class PlayerProfile extends Equatable {
     String? selectedTrack,
     int? lastEnergyRefillMs,
     Set<String>? completedLessonIds,
+    String? lastActiveDay,
   }) {
     return PlayerProfile(
       xp: xp ?? this.xp,
@@ -55,6 +60,7 @@ class PlayerProfile extends Equatable {
       selectedTrack: selectedTrack ?? this.selectedTrack,
       lastEnergyRefillMs: lastEnergyRefillMs ?? this.lastEnergyRefillMs,
       completedLessonIds: completedLessonIds ?? this.completedLessonIds,
+      lastActiveDay: lastActiveDay ?? this.lastActiveDay,
     );
   }
 
@@ -66,6 +72,7 @@ class PlayerProfile extends Equatable {
         'selectedTrack': selectedTrack,
         'lastEnergyRefillMs': lastEnergyRefillMs,
         'completedLessonIds': completedLessonIds.toList(),
+        'lastActiveDay': lastActiveDay,
       };
 
   factory PlayerProfile.fromJson(Map<String, dynamic> json) => PlayerProfile(
@@ -79,6 +86,7 @@ class PlayerProfile extends Equatable {
             ((json['completedLessonIds'] as List?)?.cast<String>() ??
                     const <String>[])
                 .toSet(),
+        lastActiveDay: json['lastActiveDay'] as String? ?? '',
       );
 
   @override
@@ -90,5 +98,6 @@ class PlayerProfile extends Equatable {
         selectedTrack,
         lastEnergyRefillMs,
         completedLessonIds,
+        lastActiveDay,
       ];
 }

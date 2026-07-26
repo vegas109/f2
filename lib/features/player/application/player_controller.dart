@@ -103,8 +103,10 @@ class PlayerController extends StateNotifier<PlayerProfile> {
     return true;
   }
 
-  /// Marks a lesson complete, awards XP and returns the XP granted.
+  /// Marks a lesson complete, awards XP, updates the daily streak, and
+  /// returns the XP granted (0 if already completed).
   int completeLesson(String lessonId, {int xp = AppConstants.xpPerLesson}) {
+    _updateStreak();
     if (state.completedLessonIds.contains(lessonId)) return 0;
     final updated = {...state.completedLessonIds, lessonId};
     _set(state.copyWith(
@@ -112,6 +114,22 @@ class PlayerController extends StateNotifier<PlayerProfile> {
       xp: state.xp + xp,
     ));
     return xp;
+  }
+
+  static String _dayKey(DateTime d) =>
+      '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
+  /// Advances or resets the streak based on the last active day.
+  void _updateStreak() {
+    final now = DateTime.now();
+    final today = _dayKey(now);
+    if (state.lastActiveDay == today) return; // already counted today
+    final yesterday = _dayKey(now.subtract(const Duration(days: 1)));
+    final newStreak =
+        state.lastActiveDay == yesterday ? state.streak + 1 : 1;
+    _set(state.copyWith(streak: newStreak, lastActiveDay: today));
   }
 
   bool isLessonCompleted(String lessonId) =>

@@ -8,6 +8,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/auth_controller.dart';
 import '../../curriculum/presentation/track_screen.dart';
 import '../../player/application/player_controller.dart';
+import '../../quests/presentation/quests_screen.dart';
 import '../../skilltree/presentation/skill_tree_screen.dart';
 
 /// The "Learn" dashboard: greeting, currencies, track picker and entry
@@ -139,7 +140,11 @@ class HomeScreen extends ConsumerWidget {
                       icon: Icons.flag_rounded,
                       title: l10n.dailyQuests,
                       color: AppColors.success,
-                      onTap: () => _comingSoon(context, l10n.dailyQuests),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const QuestsScreen(),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -163,11 +168,6 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  void _comingSoon(BuildContext context, String feature) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$feature — coming in the next step.')),
-    );
-  }
 }
 
 class _LevelCard extends StatelessWidget {
