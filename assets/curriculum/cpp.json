@@ -1,0 +1,38 @@
+{
+  "track": "cpp",
+  "title": "C++ Mastery",
+  "modules": [
+    {
+      "id": "cpp_basics",
+      "title": "Getting Started",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "cpp_hello",
+          "type": "theory",
+          "title": "Hello, World",
+          "cards": [
+            { "heading": "std::cout", "body": "std::cout writes to the console. End lines with std::endl or \\n." },
+            { "heading": "Example", "code": "#include <iostream>\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}" }
+          ]
+        },
+        {
+          "id": "cpp_types_fill",
+          "type": "fill_blank",
+          "title": "Types",
+          "prompt": "Declare an integer named x equal to 10.",
+          "template": "___ x = 10;",
+          "blanks": ["int"]
+        },
+        {
+          "id": "cpp_first_program",
+          "type": "sandbox",
+          "title": "Your First Program",
+          "instructions": "Print the sum of 2 and 3.",
+          "starterCode": "#include <iostream>\nint main() {\n    // print 2 + 3\n    return 0;\n}\n",
+          "expectedStdout": "5"
+        }
+      ]
+    }
+  ]
+}

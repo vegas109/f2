@@ -1,0 +1,38 @@
+{
+  "track": "python",
+  "title": "Python Mastery",
+  "modules": [
+    {
+      "id": "py_basics",
+      "title": "Getting Started",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "py_hello",
+          "type": "theory",
+          "title": "Hello, World",
+          "cards": [
+            { "heading": "print()", "body": "print() shows text in the console. Strings go in quotes." },
+            { "heading": "Example", "code": "print(\"Hello, World!\")" }
+          ]
+        },
+        {
+          "id": "py_variables_fill",
+          "type": "fill_blank",
+          "title": "Variables",
+          "prompt": "Assign the number 10 to a variable named x.",
+          "template": "___ = 10",
+          "blanks": ["x"]
+        },
+        {
+          "id": "py_first_program",
+          "type": "sandbox",
+          "title": "Your First Program",
+          "instructions": "Print the sum of 2 and 3.",
+          "starterCode": "# print the result of 2 + 3\n",
+          "expectedStdout": "5"
+        }
+      ]
+    }
+  ]
+}
