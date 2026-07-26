@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -67,6 +68,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 
   void _advance() {
+    HapticFeedback.selectionClick();
     if (_stepIndex < _steps.length - 1) {
       setState(() => _stepIndex++);
     } else {
@@ -75,6 +77,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 
   void _onMistake() {
+    HapticFeedback.heavyImpact();
     _mistakes++;
     ref.read(playerControllerProvider.notifier).loseEnergy();
     final energy = ref.read(playerControllerProvider).energy;
