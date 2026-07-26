@@ -8,6 +8,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/auth_controller.dart';
 import '../../curriculum/presentation/track_screen.dart';
 import '../../player/application/player_controller.dart';
+import '../../skilltree/presentation/skill_tree_screen.dart';
 
 /// The "Learn" dashboard: greeting, currencies, track picker and entry
 /// points to the main gameplay surfaces (lessons, skill tree, quests).
@@ -126,7 +127,12 @@ class HomeScreen extends ConsumerWidget {
                       icon: Icons.account_tree_rounded,
                       title: l10n.skillTree,
                       color: AppColors.cpp,
-                      onTap: () => _comingSoon(context, l10n.skillTree),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              SkillTreeScreen(trackId: player.selectedTrack),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 12),
                     _ActionTile(
