@@ -61,10 +61,14 @@ Only the `application` layer changes; `presentation` and `domain` stay put.
 
 1. ✅ Foundation: theme, routing, i18n, local auth, player economy, **working
    Sandbox** (Piston), dashboard.
-2. Curriculum engine: theory swipe cards, fill-in-the-blank, sandbox lessons,
-   lesson-completion rewards + energy loss on mistakes.
-3. Skill tree (non-linear unlocks) + boss fights (timed, no hints).
-4. Daily quests + streaks.
-5. Crafting (part drops → skins/avatars) + inventory.
-6. Monetization: crystal IAP, 3 subscription tiers, rewarded ads.
-7. Firebase enablement + Cloud Functions (secure XP, leagues, receipt checks).
+2. ✅ Curriculum engine: theory cards, fill-in-the-blank, sandbox lessons,
+   drag-and-drop constructor; XP rewards + energy loss on mistakes.
+3. ✅ Skill tree (gated module progression) + ✅ boss fights (timed, no hints).
+4. ✅ Daily quests + streaks.
+5. ✅ Crafting (part drops → skins/avatars).
+6. ✅ Monetization: crystal IAP + 3 subscription tiers (in_app_purchase);
+   rewarded-ad crystals (demo impl — real AdMob deferred).
+7. ✅ Leagues: client-side 30-player XP board (mock).
+8. ⬜ Firebase enablement + Cloud Functions (secure XP, real matchmaking +
+   weekly reset, IAP receipt validation) — requires the Blaze plan.
+9. ⬜ Polish: more curriculum content, real AdMob ads, cosmetics equipping.

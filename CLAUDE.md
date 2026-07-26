@@ -17,20 +17,32 @@ and server-side logic are layered in later behind interfaces.
 
 ## Current state
 
-Foundation is implemented and runnable:
+A full gameplay loop is implemented and runnable in Local mode:
 
-- Clean, minimal dark design system (`lib/core/theme/`).
-- Multi-language i18n via ARB (`lib/l10n/`, currently `en` + `ru`).
-- `go_router` with an auth-gated redirect (`lib/core/router/`).
-- Local auth (guest / email / Google / Apple stubs) — `features/auth/`.
-- Player economy: XP, level, energy, crystals, streak — `features/player/`.
-- **Working code Sandbox** executing Python/C++ via Piston — `features/sandbox/`
-  and `features/code_execution/`.
-- Learn dashboard, Leagues (stub), Profile, bottom-nav shell.
+- Clean, minimal dark design system (`lib/core/theme/`) + i18n (`lib/l10n/`,
+  `en` + `ru`) + `go_router` auth redirect.
+- Local auth and player economy (XP/level/energy/crystals/streak).
+- **Working code Sandbox** (Piston) — `features/sandbox`, `features/code_execution`.
+- **Lesson engine** (`features/curriculum`, `features/lesson`): four formats —
+  theory cards, fill-in-the-blank, sandbox lessons, and a drag-and-drop code
+  **constructor**; awards XP, deducts energy on mistakes; **boss** lessons are
+  timed with hints hidden.
+- **Skill tree** with gated module progression (`features/skilltree`).
+- **Daily quests** + streaks (`features/quests`).
+- **Crafting** — parts drop from lessons → cosmetics (`features/crafting`).
+- **Store** — crystal packs + 3 subscription tiers via `in_app_purchase`, plus
+  a rewarded-ad crystal path (demo impl) (`features/store`).
+- **Leagues** — 30-player XP leaderboard (client-side mock).
 
-Not yet built (see `docs/architecture.md` roadmap): the lesson-playing engine,
-skill tree, boss fights, quests, crafting/inventory, real leagues, the store,
-and Firebase/Cloud Functions enablement.
+Not yet built (see `docs/architecture.md`): Firebase/Cloud Functions
+enablement (real cloud sync, server-validated XP, real matchmaking + weekly
+reset, IAP receipt validation), more curriculum content, and real AdMob ads.
+
+**Deferred dependencies (deliberate):** `firebase_*`, `google_sign_in`,
+`sign_in_with_apple`, and `google_mobile_ads` are NOT in `pubspec.yaml` yet.
+They are unused in Local mode and add native build friction (or, for ads, crash
+at launch without an AdMob App ID). `flutterfire configure` adds the Firebase
+ones at enablement; add ads when wiring real `RewardedAdService`.
 
 ## Toolchain & commands
 

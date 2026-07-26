@@ -130,16 +130,20 @@ class StoreController extends StateNotifier<StoreState> {
       switch (purchase.status) {
         case PurchaseStatus.pending:
           state = state.copyWith(message: 'Purchase pending…');
+          break;
         case PurchaseStatus.error:
           state = state.copyWith(
               message: 'Purchase failed: ${purchase.error?.message ?? ''}');
+          break;
         case PurchaseStatus.canceled:
           state = state.copyWith(message: 'Purchase canceled.');
+          break;
         case PurchaseStatus.purchased:
         case PurchaseStatus.restored:
           // NOTE: on Blaze, verify purchase.verificationData server-side here.
           _deliver(purchase.productID);
           state = state.copyWith(message: 'Purchase successful. Thank you!');
+          break;
       }
       if (purchase.pendingCompletePurchase) {
         _iap.completePurchase(purchase);
