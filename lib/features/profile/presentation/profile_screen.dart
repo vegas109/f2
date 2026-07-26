@@ -8,6 +8,7 @@ import '../../achievements/presentation/achievements_screen.dart';
 import '../../auth/application/auth_controller.dart';
 import '../../crafting/application/crafting_controller.dart';
 import '../../crafting/presentation/crafting_screen.dart';
+import '../../curriculum/application/progress_providers.dart';
 import '../../player/application/player_controller.dart';
 import '../../settings/presentation/settings_screen.dart';
 import '../../store/application/store_controller.dart';
@@ -81,6 +82,8 @@ class ProfileScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 24),
+          const _ProgressSection(),
+          const SizedBox(height: 8),
           _NavTile(
             icon: Icons.storefront_rounded,
             color: AppColors.crystal,
@@ -129,6 +132,68 @@ class ProfileScreen extends ConsumerWidget {
             title: Text(l10n.logOut,
                 style: const TextStyle(color: AppColors.error)),
             onTap: () => ref.read(authControllerProvider.notifier).signOut(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProgressSection extends ConsumerWidget {
+  const _ProgressSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final statsAsync = ref.watch(progressStatsProvider);
+    return statsAsync.maybeWhen(
+      data: (stats) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 4, bottom: 8),
+            child: Text('Progress',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+          ),
+          for (final s in stats) _TrackProgressRow(stats: s),
+        ],
+      ),
+      orElse: () => const SizedBox.shrink(),
+    );
+  }
+}
+
+class _TrackProgressRow extends StatelessWidget {
+  const _TrackProgressRow({required this.stats});
+  final TrackProgress stats;
+
+  @override
+  Widget build(BuildContext context) {
+    final accent = AppColors.track(stats.trackId);
+    final label = stats.trackId == 'cpp' ? 'C++' : 'Python';
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(label,
+                  style: const TextStyle(fontWeight: FontWeight.w600)),
+              const Spacer(),
+              Text('${stats.completed}/${stats.total} · ${stats.percent}%',
+                  style: const TextStyle(
+                      color: AppColors.textSecondary, fontSize: 12)),
+            ],
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: LinearProgressIndicator(
+              value: stats.ratio,
+              minHeight: 8,
+              backgroundColor: AppColors.surfaceHigh,
+              valueColor: AlwaysStoppedAnimation(accent),
+            ),
           ),
         ],
       ),
