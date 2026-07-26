@@ -34,5 +34,11 @@
   "dailyQuests": "Daily quests",
   "skillTree": "Skill tree",
   "settings": "Settings",
-  "logOut": "Log out"
+  "logOut": "Log out",
+  "actionContinue": "Continue",
+  "actionCheck": "Check",
+  "actionRunCheck": "Run & Check",
+  "feedbackCorrect": "Correct!",
+  "upNext": "Up next",
+  "resume": "Resume"
 }

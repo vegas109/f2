@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../lesson/presentation/lesson_player_screen.dart';
 import '../../player/application/player_controller.dart';
 import '../application/curriculum_providers.dart';
@@ -86,6 +87,7 @@ class _ResumeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       padding: const EdgeInsets.all(16),
@@ -101,8 +103,8 @@ class _ResumeBanner extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Up next',
-                    style: TextStyle(
+                Text(l10n.upNext,
+                    style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 12,
                         fontWeight: FontWeight.w600)),
@@ -127,7 +129,7 @@ class _ResumeBanner extends StatelessWidget {
                     LessonPlayerScreen(trackId: track.id, lesson: lesson),
               ),
             ),
-            child: const Text('Resume'),
+            child: Text(l10n.resume),
           ),
         ],
       ),

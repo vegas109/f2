@@ -34,5 +34,11 @@
   "dailyQuests": "Ежедневные квесты",
   "skillTree": "Дерево навыков",
   "settings": "Настройки",
-  "logOut": "Выйти"
+  "logOut": "Выйти",
+  "actionContinue": "Далее",
+  "actionCheck": "Проверить",
+  "actionRunCheck": "Запустить и проверить",
+  "feedbackCorrect": "Верно!",
+  "upNext": "Далее",
+  "resume": "Продолжить"
 }

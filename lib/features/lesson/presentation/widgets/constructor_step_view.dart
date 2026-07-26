@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../curriculum/domain/lesson_step.dart';
 
 class _Block {
@@ -122,7 +123,7 @@ class _ConstructorStepViewState extends State<ConstructorStepView> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: _check,
-            child: const Text('Check'),
+            child: Text(AppLocalizations.of(context).actionCheck),
           ),
         ),
       ],

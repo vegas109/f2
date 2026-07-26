@@ -31,5 +31,11 @@
   "dailyQuests": "Misiones diarias",
   "skillTree": "Árbol de habilidades",
   "settings": "Ajustes",
-  "logOut": "Cerrar sesión"
+  "logOut": "Cerrar sesión",
+  "actionContinue": "Continuar",
+  "actionCheck": "Comprobar",
+  "actionRunCheck": "Ejecutar y comprobar",
+  "feedbackCorrect": "¡Correcto!",
+  "upNext": "A continuación",
+  "resume": "Reanudar"
 }

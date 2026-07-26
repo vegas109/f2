@@ -31,5 +31,11 @@
   "dailyQuests": "Quêtes quotidiennes",
   "skillTree": "Arbre de compétences",
   "settings": "Paramètres",
-  "logOut": "Se déconnecter"
+  "logOut": "Se déconnecter",
+  "actionContinue": "Continuer",
+  "actionCheck": "Vérifier",
+  "actionRunCheck": "Exécuter et vérifier",
+  "feedbackCorrect": "Correct !",
+  "upNext": "À suivre",
+  "resume": "Reprendre"
 }

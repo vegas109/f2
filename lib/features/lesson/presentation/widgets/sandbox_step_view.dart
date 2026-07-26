@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../code_execution/application/code_execution_providers.dart';
 import '../../../code_execution/domain/programming_language.dart';
 import '../../../curriculum/domain/lesson_step.dart';
@@ -91,6 +92,7 @@ class _SandboxStepViewState extends ConsumerState<SandboxStepView> {
   @override
   Widget build(BuildContext context) {
     final accent = AppColors.track(widget.language.id);
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -139,7 +141,7 @@ class _SandboxStepViewState extends ConsumerState<SandboxStepView> {
               ),
             ),
             child: Text(
-              _passed == true ? '✓ Correct!\n$_output' : _output,
+              _passed == true ? '✓ ${l10n.feedbackCorrect}\n$_output' : _output,
               style: AppTheme.codeStyle(
                 fontSize: 13,
                 color:
@@ -165,7 +167,7 @@ class _SandboxStepViewState extends ConsumerState<SandboxStepView> {
                         strokeWidth: 2, color: Colors.white),
                   )
                 : const Icon(Icons.play_arrow_rounded),
-            label: Text(_running ? 'Running…' : 'Run & Check'),
+            label: Text(_running ? l10n.sandboxRunning : l10n.actionRunCheck),
           ),
         ),
       ],

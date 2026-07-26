@@ -31,5 +31,11 @@
   "dailyQuests": "Tägliche Aufgaben",
   "skillTree": "Fähigkeitenbaum",
   "settings": "Einstellungen",
-  "logOut": "Abmelden"
+  "logOut": "Abmelden",
+  "actionContinue": "Weiter",
+  "actionCheck": "Prüfen",
+  "actionRunCheck": "Ausführen & prüfen",
+  "feedbackCorrect": "Richtig!",
+  "upNext": "Als Nächstes",
+  "resume": "Fortsetzen"
 }
