@@ -40,5 +40,6 @@
   "actionRunCheck": "Run & Check",
   "feedbackCorrect": "Correct!",
   "upNext": "Up next",
-  "resume": "Resume"
+  "resume": "Resume",
+  "startLesson": "Start lesson"
 }

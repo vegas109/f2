@@ -37,5 +37,6 @@
   "actionRunCheck": "Exécuter et vérifier",
   "feedbackCorrect": "Correct !",
   "upNext": "À suivre",
-  "resume": "Reprendre"
+  "resume": "Reprendre",
+  "startLesson": "Commencer la leçon"
 }

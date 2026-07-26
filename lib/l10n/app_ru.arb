@@ -40,5 +40,6 @@
   "actionRunCheck": "Запустить и проверить",
   "feedbackCorrect": "Верно!",
   "upNext": "Далее",
-  "resume": "Продолжить"
+  "resume": "Продолжить",
+  "startLesson": "Начать урок"
 }

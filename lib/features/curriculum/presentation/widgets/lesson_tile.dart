@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../lesson/presentation/lesson_player_screen.dart';
+import '../../../lesson/presentation/lesson_detail_screen.dart';
 import '../../../player/application/player_controller.dart';
 import '../../domain/track.dart';
 
@@ -39,7 +39,7 @@ class LessonTile extends ConsumerWidget {
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) =>
-                LessonPlayerScreen(trackId: trackId, lesson: lesson),
+                LessonDetailScreen(trackId: trackId, lesson: lesson),
           ),
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
