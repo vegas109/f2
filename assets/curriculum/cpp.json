@@ -187,6 +187,74 @@
           ]
         }
       ]
+    },
+    {
+      "id": "cpp_strings",
+      "title": "Strings & Text",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "cpp_string_basics",
+          "type": "theory",
+          "title": "std::string",
+          "steps": [
+            { "kind": "theory", "heading": "std::string", "body": "From <string>. Concatenate with + and measure with .size().", "code": "std::string a = \"code\";\nstd::string b = \"hero\";\nstd::cout << a + b;" },
+            { "kind": "fill_blank", "prompt": "Complete the method that returns a string's length.", "template": "s.___();", "answers": ["size"] }
+          ]
+        },
+        {
+          "id": "cpp_string_sandbox",
+          "type": "sandbox",
+          "title": "Concatenation",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Concatenate \"code\" and \"hero\" and print. Expected: codehero.", "starterCode": "#include <iostream>\n#include <string>\nint main() {\n    std::string a = \"code\", b = \"hero\";\n    // print a joined with b\n    return 0;\n}\n", "expectedStdout": "codehero" }
+          ]
+        },
+        {
+          "id": "cpp_boss_strings",
+          "type": "sandbox",
+          "title": "BOSS: String Length",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the length of \"education\". Expected: 9.", "starterCode": "#include <iostream>\n#include <string>\nint main() {\n    std::string s = \"education\";\n    // print its length\n    return 0;\n}\n", "expectedStdout": "9" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp_pointers",
+      "title": "Pointers & References",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "cpp_pointers_theory",
+          "type": "theory",
+          "title": "Pointers",
+          "steps": [
+            { "kind": "theory", "heading": "Pointers", "body": "A pointer stores an address. & takes an address, * dereferences it.", "code": "int x = 42;\nint* p = &x;\nstd::cout << *p;" },
+            { "kind": "fill_blank", "prompt": "Dereference the pointer p to read its value.", "template": "std::cout << ___p;", "answers": ["*"] }
+          ]
+        },
+        {
+          "id": "cpp_pointers_sandbox",
+          "type": "sandbox",
+          "title": "Using Pointers",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the value of x through a pointer. Expected: 42.", "starterCode": "#include <iostream>\nint main() {\n    int x = 42;\n    int* p = &x;\n    // print the value pointed to by p\n    return 0;\n}\n", "expectedStdout": "42" }
+          ]
+        },
+        {
+          "id": "cpp_boss_pointers",
+          "type": "sandbox",
+          "title": "BOSS: References",
+          "isBoss": true,
+          "timeLimitSeconds": 200,
+          "steps": [
+            { "kind": "sandbox", "instructions": "x starts at 41. Increment it through a reference and print x. Expected: 42.", "starterCode": "#include <iostream>\nint main() {\n    int x = 41;\n    int& r = x;\n    // increment through r, then print x\n    return 0;\n}\n", "expectedStdout": "42" }
+          ]
+        }
+      ]
     }
   ]
 }

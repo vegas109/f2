@@ -208,6 +208,67 @@
           ]
         }
       ]
+    },
+    {
+      "id": "py_strings",
+      "title": "Strings & Text",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "py_fstrings",
+          "type": "theory",
+          "title": "f-strings",
+          "steps": [
+            { "kind": "theory", "heading": "Formatted strings", "body": "f-strings embed values inside text.", "code": "name = \"Ada\"\nprint(f\"Hi {name}\")" },
+            { "kind": "fill_blank", "prompt": "Complete the prefix that makes a formatted string.", "template": "print(___\"Hi {name}\")", "answers": ["f"] }
+          ]
+        },
+        {
+          "id": "py_str_methods",
+          "type": "sandbox",
+          "title": "String Methods",
+          "steps": [
+            { "kind": "theory", "heading": "Methods", "body": ".upper(), .lower(), .strip() transform strings." },
+            { "kind": "sandbox", "instructions": "Print 'hello' in upper case. Expected: HELLO.", "starterCode": "s = \"hello\"\n# print it uppercased\n", "expectedStdout": "HELLO" }
+          ]
+        },
+        {
+          "id": "py_boss_strings",
+          "type": "sandbox",
+          "title": "BOSS: Count Vowels",
+          "isBoss": true,
+          "timeLimitSeconds": 200,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Count the vowels (a,e,i,o,u) in 'education' and print the count. Expected: 5.", "starterCode": "s = \"education\"\n# print the number of vowels\n", "expectedStdout": "5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_errors",
+      "title": "Error Handling",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "py_try",
+          "type": "theory",
+          "title": "try / except",
+          "steps": [
+            { "kind": "theory", "heading": "Exceptions", "body": "try/except catches errors so the program keeps running.", "code": "try:\n    risky()\nexcept ValueError:\n    print(\"bad value\")" },
+            { "kind": "fill_blank", "prompt": "Complete the keyword that catches an exception.", "template": "try:\n    x = 1\n___ Exception:\n    pass", "answers": ["except"] }
+          ]
+        },
+        {
+          "id": "py_boss_errors",
+          "type": "sandbox",
+          "title": "BOSS: Safe Divide",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Try to compute 10 / 0. Catch the exception and print 'error'. Expected: error.", "starterCode": "# divide 10 by 0 safely, print 'error' on failure\n", "expectedStdout": "error" }
+          ]
+        }
+      ]
     }
   ]
 }
