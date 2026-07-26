@@ -11,26 +11,65 @@
           "id": "py_hello",
           "type": "theory",
           "title": "Hello, World",
-          "cards": [
-            { "heading": "print()", "body": "print() shows text in the console. Strings go in quotes." },
-            { "heading": "Example", "code": "print(\"Hello, World!\")" }
+          "steps": [
+            { "kind": "theory", "heading": "print()", "body": "print() displays text in the console. Text (a string) goes inside quotes." },
+            { "kind": "theory", "heading": "Example", "body": "This prints a greeting:", "code": "print(\"Hello, World!\")" },
+            { "kind": "fill_blank", "prompt": "Print the word Hello.", "template": "print(\"___\")", "answers": ["Hello"], "hint": "Just the word inside the quotes." }
           ]
         },
         {
-          "id": "py_variables_fill",
+          "id": "py_variables",
           "type": "fill_blank",
           "title": "Variables",
-          "prompt": "Assign the number 10 to a variable named x.",
-          "template": "___ = 10",
-          "blanks": ["x"]
+          "steps": [
+            { "kind": "theory", "heading": "Variables", "body": "A variable stores a value. Use = to assign.", "code": "x = 10\nname = \"Ada\"" },
+            { "kind": "fill_blank", "prompt": "Store the number 10 in a variable named x.", "template": "___ = 10", "answers": ["x"] },
+            { "kind": "fill_blank", "prompt": "Store the text Ada in a variable named name.", "template": "name = \"___\"", "answers": ["Ada"] }
+          ]
         },
         {
           "id": "py_first_program",
           "type": "sandbox",
           "title": "Your First Program",
-          "instructions": "Print the sum of 2 and 3.",
-          "starterCode": "# print the result of 2 + 3\n",
-          "expectedStdout": "5"
+          "steps": [
+            { "kind": "theory", "heading": "Math", "body": "Python can do arithmetic with + - * /." },
+            { "kind": "sandbox", "instructions": "Print the sum of 2 and 3 (expected output: 5).", "starterCode": "# print the result of 2 + 3\n", "expectedStdout": "5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_control",
+      "title": "Control Flow",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "py_if",
+          "type": "constructor",
+          "title": "If Statements",
+          "steps": [
+            { "kind": "theory", "heading": "if / else", "body": "Run code conditionally. Indentation defines the block.", "code": "if x > 0:\n    print(\"positive\")" },
+            { "kind": "constructor", "instructions": "Arrange the blocks to print \"big\" when x is greater than 5.", "blocks": ["x = 10", "if x > 5:", "    print(\"big\")"], "distractors": ["else:"] }
+          ]
+        },
+        {
+          "id": "py_loops",
+          "type": "sandbox",
+          "title": "Loops",
+          "steps": [
+            { "kind": "theory", "heading": "for loop", "body": "range(n) yields 0..n-1.", "code": "for i in range(3):\n    print(i)" },
+            { "kind": "sandbox", "instructions": "Print the numbers 0, 1, 2 each on its own line.", "starterCode": "for i in range(3):\n    # print i\n    pass\n", "expectedStdout": "0\n1\n2" }
+          ]
+        },
+        {
+          "id": "py_boss_control",
+          "type": "sandbox",
+          "title": "BOSS: FizzBuzz",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "For numbers 1..5 print the number, but 'Fizz' for multiples of 3. Expected: 1,2,Fizz,4,5 each on a new line.", "starterCode": "for i in range(1, 6):\n    # your code\n    pass\n", "expectedStdout": "1\n2\nFizz\n4\n5" }
+          ]
         }
       ]
     }

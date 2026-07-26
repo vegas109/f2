@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/stat_pill.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/auth_controller.dart';
+import '../../curriculum/presentation/track_screen.dart';
 import '../../player/application/player_controller.dart';
 
 /// The "Learn" dashboard: greeting, currencies, track picker and entry
@@ -113,7 +114,12 @@ class HomeScreen extends ConsumerWidget {
                       icon: Icons.play_lesson_rounded,
                       title: l10n.continueLearning,
                       color: AppColors.primary,
-                      onTap: () => _comingSoon(context, l10n.continueLearning),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              TrackScreen(trackId: player.selectedTrack),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 12),
                     _ActionTile(

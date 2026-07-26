@@ -11,26 +11,63 @@
           "id": "cpp_hello",
           "type": "theory",
           "title": "Hello, World",
-          "cards": [
-            { "heading": "std::cout", "body": "std::cout writes to the console. End lines with std::endl or \\n." },
-            { "heading": "Example", "code": "#include <iostream>\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}" }
+          "steps": [
+            { "kind": "theory", "heading": "std::cout", "body": "std::cout writes to the console using the << operator." },
+            { "kind": "theory", "heading": "Full program", "body": "Every C++ program starts in main().", "code": "#include <iostream>\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}" },
+            { "kind": "fill_blank", "prompt": "Complete the stream object used for console output.", "template": "std::___ << \"Hi\";", "answers": ["cout"] }
           ]
         },
         {
-          "id": "cpp_types_fill",
+          "id": "cpp_types",
           "type": "fill_blank",
-          "title": "Types",
-          "prompt": "Declare an integer named x equal to 10.",
-          "template": "___ x = 10;",
-          "blanks": ["int"]
+          "title": "Types & Variables",
+          "steps": [
+            { "kind": "theory", "heading": "Typed variables", "body": "C++ is statically typed: you declare the type.", "code": "int x = 10;\ndouble pi = 3.14;\nstd::string name = \"Ada\";" },
+            { "kind": "fill_blank", "prompt": "Declare an integer x equal to 10.", "template": "___ x = 10;", "answers": ["int"] }
+          ]
         },
         {
           "id": "cpp_first_program",
           "type": "sandbox",
           "title": "Your First Program",
-          "instructions": "Print the sum of 2 and 3.",
-          "starterCode": "#include <iostream>\nint main() {\n    // print 2 + 3\n    return 0;\n}\n",
-          "expectedStdout": "5"
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the sum of 2 and 3 (expected output: 5).", "starterCode": "#include <iostream>\nint main() {\n    // print 2 + 3\n    return 0;\n}\n", "expectedStdout": "5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp_control",
+      "title": "Control Flow",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "cpp_if",
+          "type": "constructor",
+          "title": "If Statements",
+          "steps": [
+            { "kind": "theory", "heading": "if / else", "body": "Braces define the block.", "code": "if (x > 5) {\n    std::cout << \"big\";\n}" },
+            { "kind": "constructor", "instructions": "Arrange the blocks to print \"big\" when x is greater than 5.", "blocks": ["int x = 10;", "if (x > 5) {", "    std::cout << \"big\";", "}"], "distractors": ["else {"] }
+          ]
+        },
+        {
+          "id": "cpp_loops",
+          "type": "sandbox",
+          "title": "Loops",
+          "steps": [
+            { "kind": "theory", "heading": "for loop", "body": "Classic C-style for loop.", "code": "for (int i = 0; i < 3; i++) {\n    std::cout << i << \"\\n\";\n}" },
+            { "kind": "sandbox", "instructions": "Print 0, 1, 2 each on its own line.", "starterCode": "#include <iostream>\nint main() {\n    for (int i = 0; i < 3; i++) {\n        // print i and a newline\n    }\n    return 0;\n}\n", "expectedStdout": "0\n1\n2" }
+          ]
+        },
+        {
+          "id": "cpp_boss_control",
+          "type": "sandbox",
+          "title": "BOSS: Sum 1..5",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the sum of numbers 1 to 5 (expected: 15).", "starterCode": "#include <iostream>\nint main() {\n    // compute and print the sum 1..5\n    return 0;\n}\n", "expectedStdout": "15" }
+          ]
         }
       ]
     }
