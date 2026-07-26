@@ -20,7 +20,8 @@ and server-side logic are layered in later behind interfaces.
 A full gameplay loop is implemented and runnable in Local mode:
 
 - Clean, minimal dark design system (`lib/core/theme/`) + i18n (`lib/l10n/`,
-  `en` + `ru`) + `go_router` auth redirect.
+  `en`/`ru`/`es`/`de`) with an in-app language switcher (`features/settings`,
+  `core/localization`) + `go_router` auth redirect.
 - Local auth and player economy (XP/level/energy/crystals/streak).
 - **Working code Sandbox** (Piston) — `features/sandbox`, `features/code_execution`.
 - **Lesson engine** (`features/curriculum`, `features/lesson`): four formats —
@@ -29,7 +30,9 @@ A full gameplay loop is implemented and runnable in Local mode:
   timed with hints hidden.
 - **Skill tree** with gated module progression (`features/skilltree`).
 - **Daily quests** + streaks (`features/quests`).
-- **Crafting** — parts drop from lessons → cosmetics (`features/crafting`).
+- **Crafting** — parts drop from lessons → craft & **equip** cosmetics
+  (equipped avatar shows on the profile) (`features/crafting`).
+- **Achievements** derived from progress (`features/achievements`).
 - **Store** — crystal packs + 3 subscription tiers via `in_app_purchase`, plus
   a rewarded-ad crystal path (demo impl) (`features/store`).
 - **Leagues** — 30-player XP leaderboard (client-side mock).

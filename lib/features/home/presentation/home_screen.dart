@@ -12,65 +12,31 @@ import '../../quests/presentation/quests_screen.dart';
 import '../../skilltree/presentation/skill_tree_screen.dart';
 import '../../store/presentation/store_screen.dart';
 
-/// The "Learn" dashboard: greeting, currencies, track picker and entry
-/// points to the main gameplay surfaces (lessons, skill tree, quests).
-class HomeScreen extends ConsumerWidget {
+/// The "Learn" dashboard.
+///
+/// Optimization: the screen itself watches nothing, so it never rebuilds. Each
+/// dynamic region (currencies, level, track selector) is its own consumer that
+/// watches only the fields it needs via `select`, so an XP or energy change
+/// repaints just that region — not the whole tab, and not while another tab is
+/// on screen.
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final user = ref.watch(authControllerProvider).user;
-    final player = ref.watch(playerControllerProvider);
-    final playerCtrl = ref.read(playerControllerProvider.notifier);
-
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              sliver: SliverToBoxAdapter(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        l10n.greeting(user?.displayName ?? 'Coder'),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    StatPill(
-                      icon: Icons.favorite,
-                      value: '${player.energy}',
-                      color: AppColors.energy,
-                      onTap: () => _showEnergySheet(context, ref),
-                    ),
-                    const SizedBox(width: 8),
-                    StatPill(
-                      icon: Icons.diamond,
-                      value: '${player.crystals}',
-                      color: AppColors.crystal,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (_) => const StoreScreen()),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const SliverPadding(
+              padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+              sliver: SliverToBoxAdapter(child: _HeaderRow()),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: _LevelCard(
-                  level: player.level,
-                  progress: player.levelProgress,
-                  xp: player.xp,
-                  streak: player.streak,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: _LevelSection(),
               ),
             ),
             SliverToBoxAdapter(
@@ -85,32 +51,10 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _TrackCard(
-                        title: 'Python',
-                        subtitle: 'Junior → Middle+',
-                        color: AppColors.python,
-                        selected: player.selectedTrack == 'python',
-                        onTap: () => playerCtrl.selectTrack('python'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _TrackCard(
-                        title: 'C++',
-                        subtitle: 'Junior → Middle+',
-                        color: AppColors.cpp,
-                        selected: player.selectedTrack == 'cpp',
-                        onTap: () => playerCtrl.selectTrack('cpp'),
-                      ),
-                    ),
-                  ],
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: _TrackSelector(),
               ),
             ),
             SliverToBoxAdapter(
@@ -122,24 +66,16 @@ class HomeScreen extends ConsumerWidget {
                       icon: Icons.play_lesson_rounded,
                       title: l10n.continueLearning,
                       color: AppColors.primary,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              TrackScreen(trackId: player.selectedTrack),
-                        ),
-                      ),
+                      onTap: () => _push(
+                          context, (id) => TrackScreen(trackId: id)),
                     ),
                     const SizedBox(height: 12),
                     _ActionTile(
                       icon: Icons.account_tree_rounded,
                       title: l10n.skillTree,
                       color: AppColors.cpp,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              SkillTreeScreen(trackId: player.selectedTrack),
-                        ),
-                      ),
+                      onTap: () => _push(
+                          context, (id) => SkillTreeScreen(trackId: id)),
                     ),
                     const SizedBox(height: 12),
                     _ActionTile(
@@ -147,24 +83,25 @@ class HomeScreen extends ConsumerWidget {
                       title: l10n.dailyQuests,
                       color: AppColors.success,
                       onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const QuestsScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => const QuestsScreen()),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            // Demo affordance so the economy is testable before lessons land.
+            // Demo affordance so the economy is testable.
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                child: OutlinedButton.icon(
-                  onPressed: () =>
-                      playerCtrl.addXp(AppConstants.xpPerLesson),
-                  icon: const Icon(Icons.add),
-                  label: const Text('Demo: +20 XP'),
+                child: Consumer(
+                  builder: (context, ref, _) => OutlinedButton.icon(
+                    onPressed: () => ref
+                        .read(playerControllerProvider.notifier)
+                        .addXp(AppConstants.xpPerLesson),
+                    icon: const Icon(Icons.add),
+                    label: const Text('Demo: +20 XP'),
+                  ),
                 ),
               ),
             ),
@@ -174,6 +111,112 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+  /// Pushes a track-scoped screen, reading the selected track lazily at build
+  /// time so the dashboard doesn't rebuild when the track changes.
+  void _push(BuildContext context, Widget Function(String trackId) builder) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => Consumer(
+          builder: (_, ref, __) => builder(
+            ref.read(playerControllerProvider).selectedTrack,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HeaderRow extends ConsumerWidget {
+  const _HeaderRow();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final name = ref.watch(
+        authControllerProvider.select((s) => s.user?.displayName ?? 'Coder'));
+    final energy =
+        ref.watch(playerControllerProvider.select((p) => p.energy));
+    final crystals =
+        ref.watch(playerControllerProvider.select((p) => p.crystals));
+
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            l10n.greeting(name),
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+        StatPill(
+          icon: Icons.favorite,
+          value: '$energy',
+          color: AppColors.energy,
+          onTap: () => _showEnergySheet(context, ref),
+        ),
+        const SizedBox(width: 8),
+        StatPill(
+          icon: Icons.diamond,
+          value: '$crystals',
+          color: AppColors.crystal,
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => const StoreScreen()),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _LevelSection extends ConsumerWidget {
+  const _LevelSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final level = ref.watch(playerControllerProvider.select((p) => p.level));
+    final progress =
+        ref.watch(playerControllerProvider.select((p) => p.levelProgress));
+    final xp = ref.watch(playerControllerProvider.select((p) => p.xp));
+    final streak = ref.watch(playerControllerProvider.select((p) => p.streak));
+    return _LevelCard(
+        level: level, progress: progress, xp: xp, streak: streak);
+  }
+}
+
+class _TrackSelector extends ConsumerWidget {
+  const _TrackSelector();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selected =
+        ref.watch(playerControllerProvider.select((p) => p.selectedTrack));
+    final ctrl = ref.read(playerControllerProvider.notifier);
+    return Row(
+      children: [
+        Expanded(
+          child: _TrackCard(
+            title: 'Python',
+            subtitle: 'Junior → Middle+',
+            color: AppColors.python,
+            selected: selected == 'python',
+            onTap: () => ctrl.selectTrack('python'),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _TrackCard(
+            title: 'C++',
+            subtitle: 'Junior → Middle+',
+            color: AppColors.cpp,
+            selected: selected == 'cpp',
+            onTap: () => ctrl.selectTrack('cpp'),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 void _showEnergySheet(BuildContext context, WidgetRef ref) {
@@ -215,9 +258,8 @@ void _showEnergySheet(BuildContext context, WidgetRef ref) {
                   Navigator.of(sheetContext).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(ok
-                          ? 'Energy refilled!'
-                          : 'Not enough crystals.'),
+                      content: Text(
+                          ok ? 'Energy refilled!' : 'Not enough crystals.'),
                     ),
                   );
                 },
@@ -295,8 +337,7 @@ class _LevelCard extends StatelessWidget {
                 value: progress,
                 minHeight: 8,
                 backgroundColor: AppColors.surfaceHigh,
-                valueColor:
-                    const AlwaysStoppedAnimation(AppColors.primary),
+                valueColor: const AlwaysStoppedAnimation(AppColors.primary),
               ),
             ),
           ],
