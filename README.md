@@ -63,6 +63,8 @@ structured so these swap in without touching the UI. See `docs/architecture.md`.
 - `docs/architecture.md` — stack, folder layout, the Local-mode ⇄ server seam,
   and the feature roadmap.
 - `docs/firestore_schema.md` — the read-minimizing Firestore data model.
+- `docs/firebase_enablement.md` — step-by-step guide to turning on Firebase,
+  Cloud Functions, AdMob and IAP (`functions/` holds the server code).
 - `CLAUDE.md` — guidance for AI assistants working in this repo.
 
 ## Code execution

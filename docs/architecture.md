@@ -69,6 +69,9 @@ Only the `application` layer changes; `presentation` and `domain` stay put.
 6. ✅ Monetization: crystal IAP + 3 subscription tiers (in_app_purchase);
    rewarded-ad crystals (demo impl — real AdMob deferred).
 7. ✅ Leagues: client-side 30-player XP board (mock).
-8. ⬜ Firebase enablement + Cloud Functions (secure XP, real matchmaking +
-   weekly reset, IAP receipt validation) — requires the Blaze plan.
-9. ⬜ Polish: more curriculum content, real AdMob ads, cosmetics equipping.
+8. 🟨 Firebase enablement — **server scaffolding written** (`functions/`,
+   `firestore.rules`, `firestore.indexes.json`) with a step-by-step guide in
+   `docs/firebase_enablement.md`; the Flutter-side swap (auth/economy) is the
+   remaining work and requires the Blaze plan.
+9. ✅ Onboarding + ✅ cosmetics equipping. ⬜ Remaining polish: real AdMob ads,
+   wiring the client to the callables.
