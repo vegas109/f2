@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/auth_controller.dart';
+import '../../crafting/presentation/crafting_screen.dart';
 import '../../player/application/player_controller.dart';
+import '../../store/application/store_controller.dart';
+import '../../store/presentation/store_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -60,6 +63,39 @@ class ProfileScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 24),
+          _NavTile(
+            icon: Icons.storefront_rounded,
+            color: AppColors.crystal,
+            title: 'Store',
+            subtitle: 'Crystals & subscriptions',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const StoreScreen()),
+            ),
+          ),
+          _NavTile(
+            icon: Icons.handyman_rounded,
+            color: AppColors.warning,
+            title: 'Crafting',
+            subtitle: 'Turn parts into cosmetics',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const CraftingScreen()),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Consumer(builder: (context, ref, _) {
+            final tier = ref.watch(
+                storeControllerProvider.select((s) => s.activeTier));
+            if (tier == 'none') return const SizedBox.shrink();
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Chip(
+                avatar: const Icon(Icons.workspace_premium,
+                    size: 18, color: AppColors.warning),
+                label: Text('${tier[0].toUpperCase()}${tier.substring(1)} member'),
+              ),
+            );
+          }),
+          const Divider(height: 32),
           ListTile(
             leading: const Icon(Icons.logout, color: AppColors.error),
             title: Text(l10n.logOut,
@@ -67,6 +103,42 @@ class ProfileScreen extends ConsumerWidget {
             onTap: () => ref.read(authControllerProvider.notifier).signOut(),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _NavTile extends StatelessWidget {
+  const _NavTile({
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+  final IconData icon;
+  final Color color;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: ListTile(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        leading: CircleAvatar(
+          backgroundColor: color.withOpacity(0.16),
+          child: Icon(icon, color: color),
+        ),
+        title: Text(title,
+            style: const TextStyle(fontWeight: FontWeight.w600)),
+        subtitle: Text(subtitle,
+            style: const TextStyle(color: AppColors.textSecondary)),
+        trailing: const Icon(Icons.chevron_right, color: AppColors.textMuted),
+        onTap: onTap,
       ),
     );
   }

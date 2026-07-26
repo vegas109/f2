@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../code_execution/domain/programming_language.dart';
 import '../../curriculum/domain/lesson_step.dart';
 import '../../curriculum/domain/track.dart';
+import '../../crafting/application/crafting_controller.dart';
 import '../../player/application/player_controller.dart';
 import '../../quests/application/quest_controller.dart';
 import 'widgets/constructor_step_view.dart';
@@ -90,6 +91,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           trackId: widget.trackId,
           mistakes: _mistakes,
         );
+    // Parts drop from lessons, fueling crafting.
+    ref
+        .read(craftingControllerProvider.notifier)
+        .addParts(widget.lesson.isBoss ? 4 : 2);
     showDialog(
       context: context,
       barrierDismissible: false,

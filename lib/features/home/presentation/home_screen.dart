@@ -10,6 +10,7 @@ import '../../curriculum/presentation/track_screen.dart';
 import '../../player/application/player_controller.dart';
 import '../../quests/presentation/quests_screen.dart';
 import '../../skilltree/presentation/skill_tree_screen.dart';
+import '../../store/presentation/store_screen.dart';
 
 /// The "Learn" dashboard: greeting, currencies, track picker and entry
 /// points to the main gameplay surfaces (lessons, skill tree, quests).
@@ -45,12 +46,17 @@ class HomeScreen extends ConsumerWidget {
                       icon: Icons.favorite,
                       value: '${player.energy}',
                       color: AppColors.energy,
+                      onTap: () => _showEnergySheet(context, ref),
                     ),
                     const SizedBox(width: 8),
                     StatPill(
                       icon: Icons.diamond,
                       value: '${player.crystals}',
                       color: AppColors.crystal,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const StoreScreen()),
+                      ),
                     ),
                   ],
                 ),
@@ -168,6 +174,60 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+}
+
+void _showEnergySheet(BuildContext context, WidgetRef ref) {
+  showModalBottomSheet<void>(
+    context: context,
+    backgroundColor: AppColors.surface,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    ),
+    builder: (sheetContext) {
+      final player = ref.read(playerControllerProvider);
+      return Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.favorite, color: AppColors.energy, size: 40),
+            const SizedBox(height: 12),
+            Text('${player.energy} / ${AppConstants.maxEnergy} energy',
+                style: const TextStyle(
+                    fontSize: 18, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 6),
+            const Text(
+              'Energy regenerates over time. Refill instantly with crystals.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: AppColors.textSecondary),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.diamond, size: 18),
+                label: Text(
+                    'Refill for ${AppConstants.energyRefillCostCrystals} crystals'),
+                onPressed: () {
+                  final ok = ref
+                      .read(playerControllerProvider.notifier)
+                      .refillEnergyForCrystals();
+                  Navigator.of(sheetContext).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(ok
+                          ? 'Energy refilled!'
+                          : 'Not enough crystals.'),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }
 
 class _LevelCard extends StatelessWidget {
