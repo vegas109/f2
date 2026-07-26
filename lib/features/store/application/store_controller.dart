@@ -5,6 +5,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/application/auth_controller.dart';
+import '../../backend/application/purchase_validator.dart';
 import '../../player/application/player_controller.dart';
 import '../domain/store_products.dart';
 
@@ -140,9 +141,7 @@ class StoreController extends StateNotifier<StoreState> {
           break;
         case PurchaseStatus.purchased:
         case PurchaseStatus.restored:
-          // NOTE: on Blaze, verify purchase.verificationData server-side here.
-          _deliver(purchase.productID);
-          state = state.copyWith(message: 'Purchase successful. Thank you!');
+          _deliver(purchase);
           break;
       }
       if (purchase.pendingCompletePurchase) {
@@ -151,16 +150,29 @@ class StoreController extends StateNotifier<StoreState> {
     }
   }
 
-  void _deliver(String productId) {
+  /// Validates through the [PurchaseValidator] seam (server-side receipt check
+  /// in remote mode) before granting entitlements.
+  Future<void> _deliver(PurchaseDetails purchase) async {
+    final valid = await _ref.read(purchaseValidatorProvider).validate(
+          productId: purchase.productID,
+          purchaseToken: purchase.verificationData.serverVerificationData,
+        );
+    if (!valid) {
+      state = state.copyWith(message: 'Purchase could not be verified.');
+      return;
+    }
+
+    final productId = purchase.productID;
     final crystals = StoreProducts.crystalsForProduct(productId);
     if (crystals > 0) {
       _ref.read(playerControllerProvider.notifier).addCrystals(crystals);
+      state = state.copyWith(message: 'Purchase successful. Thank you!');
       return;
     }
     final tier = StoreProducts.tierForProduct(productId);
     if (tier != null) {
       _prefs.setString(_tierKey, tier);
-      state = state.copyWith(activeTier: tier);
+      state = state.copyWith(activeTier: tier, message: 'Subscription active.');
     }
   }
 

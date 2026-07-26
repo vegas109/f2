@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../code_execution/domain/programming_language.dart';
 import '../../curriculum/domain/lesson_step.dart';
 import '../../curriculum/domain/track.dart';
+import '../../backend/application/reward_service.dart';
 import '../../crafting/application/crafting_controller.dart';
 import '../../player/application/player_controller.dart';
 import '../../quests/application/quest_controller.dart';
@@ -82,11 +83,17 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     }
   }
 
-  void _complete() {
+  Future<void> _complete() async {
     _timer?.cancel();
-    final awarded = ref
-        .read(playerControllerProvider.notifier)
-        .completeLesson(widget.lesson.id, xp: widget.lesson.xpReward);
+    // Reward goes through the RewardService seam: local grant now, or a
+    // server-authoritative Cloud Functions callable when remote mode is on.
+    final awarded = await ref.read(rewardServiceProvider).claimLessonReward(
+          lessonId: widget.lesson.id,
+          isBoss: widget.lesson.isBoss,
+          trackId: widget.trackId,
+          fallbackXp: widget.lesson.xpReward,
+        );
+    if (!mounted) return;
     ref.read(questControllerProvider.notifier).recordLessonCompleted(
           trackId: widget.trackId,
           mistakes: _mistakes,

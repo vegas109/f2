@@ -86,7 +86,10 @@ l10n code is generated automatically on build (config in `l10n.yaml`).
   Blaze / Cloud Functions should only replace `application`-layer classes —
   never `presentation` or `domain`. Preserve this boundary.
 - **Currency/economy mutations** funnel through `PlayerController` so they can
-  later be moved server-side without touching callers.
+  later be moved server-side without touching callers. Lesson rewards and
+  purchase delivery additionally go through the `features/backend` seam
+  (`RewardService`, `PurchaseValidator`) — local impls now, remote Cloud
+  Functions stubs behind `AppConfig.useRemoteBackend` (default off).
 - **Balance/economy numbers** live in `lib/core/constants/app_constants.dart`.
 - **Strings** shown to users go through ARB localization, not hard-coded
   literals (add keys to every `app_*.arb`).

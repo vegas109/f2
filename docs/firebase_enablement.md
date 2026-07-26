@@ -59,6 +59,22 @@ Listen to `FirebaseAuth.instance.authStateChanges()` to drive `AuthState`.
 
 ## 3. Move the economy behind Firestore + Functions
 
+The client is **already wired to the callables behind a flag**. Flip
+`AppConfig.useRemoteBackend` to `true`
+(`lib/core/config/app_config.dart`) and fill in the two stub bodies:
+
+- `lib/features/backend/application/reward_service.dart` →
+  `RemoteRewardService.claimLessonReward` (used by the lesson player).
+- `lib/features/backend/application/purchase_validator.dart` →
+  `RemotePurchaseValidator.validate` (used by `StoreController` before it
+  grants entitlements).
+
+Each stub already contains the exact `FirebaseFunctions.instance.httpsCallable`
+call to uncomment. Until the flag is on, the local path runs and the app builds
+without firebase dependencies.
+
+### Reference: the seam
+
 - Point a new `FirestorePlayerRepository` at `users/{uid}` (see
   `docs/firestore_schema.md` — one document read powers the whole dashboard).
 - For anything trusted, call the callables instead of mutating locally:
