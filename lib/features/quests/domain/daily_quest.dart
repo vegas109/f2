@@ -18,7 +18,7 @@ class DailyQuest {
   final bool claimed;
 
   bool get isComplete => progress >= goal;
-  double get ratio => goal == 0 ? 0 : (progress / goal).clamp(0, 1);
+  double get ratio => goal == 0 ? 0 : (progress / goal).clamp(0.0, 1.0);
 
   DailyQuest copyWith({int? progress, bool? claimed}) => DailyQuest(
         id: id,
