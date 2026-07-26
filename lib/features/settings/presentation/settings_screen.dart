@@ -13,6 +13,8 @@ const _languages = <_Lang>[
   _Lang('ru', 'Русский', '🇷🇺'),
   _Lang('es', 'Español', '🇪🇸'),
   _Lang('de', 'Deutsch', '🇩🇪'),
+  _Lang('fr', 'Français', '🇫🇷'),
+  _Lang('pt', 'Português', '🇵🇹'),
 ];
 
 class SettingsScreen extends ConsumerWidget {
