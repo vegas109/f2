@@ -62,6 +62,15 @@
           ]
         },
         {
+          "id": "py_while",
+          "type": "fill_blank",
+          "title": "While Loops",
+          "steps": [
+            { "kind": "theory", "heading": "while", "body": "Repeats while a condition is true.", "code": "i = 0\nwhile i < 3:\n    i += 1" },
+            { "kind": "fill_blank", "prompt": "Loop while i is less than 5.", "template": "while i ___ 5:", "answers": ["<"] }
+          ]
+        },
+        {
           "id": "py_boss_control",
           "type": "sandbox",
           "title": "BOSS: FizzBuzz",
@@ -69,6 +78,133 @@
           "timeLimitSeconds": 180,
           "steps": [
             { "kind": "sandbox", "instructions": "For numbers 1..5 print the number, but 'Fizz' for multiples of 3. Expected: 1,2,Fizz,4,5 each on a new line.", "starterCode": "for i in range(1, 6):\n    # your code\n    pass\n", "expectedStdout": "1\n2\nFizz\n4\n5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_functions",
+      "title": "Functions",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "py_def",
+          "type": "theory",
+          "title": "Defining Functions",
+          "steps": [
+            { "kind": "theory", "heading": "def", "body": "Functions group reusable code. They can take parameters and return values.", "code": "def greet(name):\n    return \"Hi \" + name" },
+            { "kind": "fill_blank", "prompt": "Complete the keyword that defines a function.", "template": "___ greet(name):", "answers": ["def"] }
+          ]
+        },
+        {
+          "id": "py_return",
+          "type": "sandbox",
+          "title": "Return Values",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Write a function add(a, b) that returns a + b, then print add(2, 3). Expected: 5.", "starterCode": "def add(a, b):\n    # return the sum\n    pass\n\nprint(add(2, 3))\n", "expectedStdout": "5" }
+          ]
+        },
+        {
+          "id": "py_boss_functions",
+          "type": "sandbox",
+          "title": "BOSS: Max of Two",
+          "isBoss": true,
+          "timeLimitSeconds": 150,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Write maximum(a, b) returning the larger value and print maximum(7, 4). Expected: 7.", "starterCode": "def maximum(a, b):\n    # return the larger one\n    pass\n\nprint(maximum(7, 4))\n", "expectedStdout": "7" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_data",
+      "title": "Data Structures",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "py_lists",
+          "type": "theory",
+          "title": "Lists",
+          "steps": [
+            { "kind": "theory", "heading": "Lists", "body": "Ordered, mutable collections.", "code": "nums = [1, 2, 3]\nnums.append(4)" },
+            { "kind": "fill_blank", "prompt": "Add 4 to the end of the list nums.", "template": "nums.___(4)", "answers": ["append"] }
+          ]
+        },
+        {
+          "id": "py_list_sum",
+          "type": "sandbox",
+          "title": "Summing a List",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the sum of [1, 2, 3, 4]. Expected: 10.", "starterCode": "nums = [1, 2, 3, 4]\n# print the sum\n", "expectedStdout": "10" }
+          ]
+        },
+        {
+          "id": "py_dicts",
+          "type": "fill_blank",
+          "title": "Dictionaries",
+          "steps": [
+            { "kind": "theory", "heading": "dict", "body": "Key-value pairs.", "code": "ages = {\"Ada\": 36}\nprint(ages[\"Ada\"])" },
+            { "kind": "fill_blank", "prompt": "Read the value stored under the key Ada.", "template": "ages[\"___\"]", "answers": ["Ada"] }
+          ]
+        },
+        {
+          "id": "py_boss_data",
+          "type": "sandbox",
+          "title": "BOSS: Count Evens",
+          "isBoss": true,
+          "timeLimitSeconds": 200,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Count how many numbers in [1,2,3,4,5,6] are even and print it. Expected: 3.", "starterCode": "nums = [1, 2, 3, 4, 5, 6]\n# print how many are even\n", "expectedStdout": "3" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_oop",
+      "title": "Object-Oriented Python",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "py_class",
+          "type": "theory",
+          "title": "Classes",
+          "steps": [
+            { "kind": "theory", "heading": "class", "body": "Classes bundle data and behavior.", "code": "class Dog:\n    def bark(self):\n        return \"Woof\"" },
+            { "kind": "constructor", "instructions": "Assemble a class Dog with a bark() method that returns 'Woof'.", "blocks": ["class Dog:", "    def bark(self):", "        return \"Woof\""], "distractors": ["def Dog():"] }
+          ]
+        },
+        {
+          "id": "py_oop_sandbox",
+          "type": "sandbox",
+          "title": "Using a Class",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Create the Dog class with bark() returning 'Woof', then print Dog().bark(). Expected: Woof.", "starterCode": "class Dog:\n    def bark(self):\n        return \"Woof\"\n\n# print a bark\n", "expectedStdout": "Woof" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py_algorithms",
+      "title": "Algorithms",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "py_factorial",
+          "type": "sandbox",
+          "title": "Factorial",
+          "steps": [
+            { "kind": "theory", "heading": "Recursion & loops", "body": "Factorial n! multiplies 1..n." },
+            { "kind": "sandbox", "instructions": "Print 5! (factorial of 5). Expected: 120.", "starterCode": "n = 5\nresult = 1\n# compute n! and print result\n", "expectedStdout": "120" }
+          ]
+        },
+        {
+          "id": "py_boss_algorithms",
+          "type": "sandbox",
+          "title": "BOSS: Reverse a String",
+          "isBoss": true,
+          "timeLimitSeconds": 150,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the reverse of 'hello'. Expected: olleh.", "starterCode": "s = \"hello\"\n# print s reversed\n", "expectedStdout": "olleh" }
           ]
         }
       ]

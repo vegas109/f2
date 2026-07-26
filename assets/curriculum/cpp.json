@@ -70,6 +70,123 @@
           ]
         }
       ]
+    },
+    {
+      "id": "cpp_functions",
+      "title": "Functions",
+      "level": "Junior",
+      "lessons": [
+        {
+          "id": "cpp_func_def",
+          "type": "theory",
+          "title": "Defining Functions",
+          "steps": [
+            { "kind": "theory", "heading": "Functions", "body": "Declare a return type, a name, and parameters.", "code": "int add(int a, int b) {\n    return a + b;\n}" },
+            { "kind": "fill_blank", "prompt": "Give the function the correct return type for an integer sum.", "template": "___ add(int a, int b) { return a + b; }", "answers": ["int"] }
+          ]
+        },
+        {
+          "id": "cpp_func_sandbox",
+          "type": "sandbox",
+          "title": "Using Functions",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Define add(a, b) returning a+b and print add(2, 3). Expected: 5.", "starterCode": "#include <iostream>\nint add(int a, int b) {\n    // return the sum\n}\nint main() {\n    std::cout << add(2, 3);\n    return 0;\n}\n", "expectedStdout": "5" }
+          ]
+        },
+        {
+          "id": "cpp_boss_functions",
+          "type": "sandbox",
+          "title": "BOSS: Max of Two",
+          "isBoss": true,
+          "timeLimitSeconds": 150,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Write maximum(a, b) returning the larger value and print maximum(7, 4). Expected: 7.", "starterCode": "#include <iostream>\nint maximum(int a, int b) {\n    // return the larger one\n}\nint main() {\n    std::cout << maximum(7, 4);\n    return 0;\n}\n", "expectedStdout": "7" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp_data",
+      "title": "Data Structures",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "cpp_vector",
+          "type": "theory",
+          "title": "Vectors",
+          "steps": [
+            { "kind": "theory", "heading": "std::vector", "body": "A dynamic array from <vector>.", "code": "#include <vector>\nstd::vector<int> v = {1, 2, 3};\nv.push_back(4);" },
+            { "kind": "fill_blank", "prompt": "Append 4 to the vector v.", "template": "v.___(4);", "answers": ["push_back"] }
+          ]
+        },
+        {
+          "id": "cpp_vector_sum",
+          "type": "sandbox",
+          "title": "Summing a Vector",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Sum {1,2,3,4} and print it. Expected: 10.", "starterCode": "#include <iostream>\n#include <vector>\nint main() {\n    std::vector<int> v = {1, 2, 3, 4};\n    int sum = 0;\n    // add up the vector\n    std::cout << sum;\n    return 0;\n}\n", "expectedStdout": "10" }
+          ]
+        },
+        {
+          "id": "cpp_boss_data",
+          "type": "sandbox",
+          "title": "BOSS: Count Evens",
+          "isBoss": true,
+          "timeLimitSeconds": 200,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Count even numbers in {1,2,3,4,5,6} and print it. Expected: 3.", "starterCode": "#include <iostream>\n#include <vector>\nint main() {\n    std::vector<int> v = {1, 2, 3, 4, 5, 6};\n    int count = 0;\n    // count evens\n    std::cout << count;\n    return 0;\n}\n", "expectedStdout": "3" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp_oop",
+      "title": "Object-Oriented C++",
+      "level": "Middle",
+      "lessons": [
+        {
+          "id": "cpp_class",
+          "type": "constructor",
+          "title": "Classes",
+          "steps": [
+            { "kind": "theory", "heading": "class", "body": "Classes bundle data and methods. Note the semicolon after the closing brace.", "code": "class Dog {\npublic:\n    std::string bark() { return \"Woof\"; }\n};" },
+            { "kind": "constructor", "instructions": "Assemble a Dog class with a public bark() method returning \"Woof\".", "blocks": ["class Dog {", "public:", "    std::string bark() { return \"Woof\"; }", "};"], "distractors": ["def bark():"] }
+          ]
+        },
+        {
+          "id": "cpp_oop_sandbox",
+          "type": "sandbox",
+          "title": "Using a Class",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Create a Dog with bark() returning \"Woof\" and print Dog().bark(). Expected: Woof.", "starterCode": "#include <iostream>\n#include <string>\nclass Dog {\npublic:\n    std::string bark() { return \"Woof\"; }\n};\nint main() {\n    // print a bark\n    return 0;\n}\n", "expectedStdout": "Woof" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp_algorithms",
+      "title": "Algorithms",
+      "level": "Middle+",
+      "lessons": [
+        {
+          "id": "cpp_factorial",
+          "type": "sandbox",
+          "title": "Factorial",
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print 5! (factorial of 5). Expected: 120.", "starterCode": "#include <iostream>\nint main() {\n    int n = 5, result = 1;\n    // compute n!\n    std::cout << result;\n    return 0;\n}\n", "expectedStdout": "120" }
+          ]
+        },
+        {
+          "id": "cpp_boss_algorithms",
+          "type": "sandbox",
+          "title": "BOSS: Reverse a String",
+          "isBoss": true,
+          "timeLimitSeconds": 180,
+          "steps": [
+            { "kind": "sandbox", "instructions": "Print the reverse of \"hello\". Expected: olleh.", "starterCode": "#include <iostream>\n#include <string>\n#include <algorithm>\nint main() {\n    std::string s = \"hello\";\n    // reverse and print s\n    return 0;\n}\n", "expectedStdout": "olleh" }
+          ]
+        }
+      ]
     }
   ]
 }
